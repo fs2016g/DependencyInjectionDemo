@@ -6,19 +6,23 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DemoLibrary
-{
-    public class BusinessLogic
+{    
+    public class BusinessLogic : IBusinessLogic
     {
-        public void ProcessData()
+        ILogger _logger;
+        IDataAccess _dataAccess;
+        public BusinessLogic(ILogger logger, IDataAccess dataAccess)
         {
-            Logger logger = new Logger();
-            DataAccess dataAccess = new DataAccess();
-
-            logger.Log("Starting the processing of data.");
+            _logger = logger;
+            _dataAccess = dataAccess;
+        }
+        public void ProcessData()
+        {            
+            _logger.Log("Starting the processing of data.");
             Console.WriteLine("Processing the data");
-            dataAccess.LoadData();
-            dataAccess.SaveData("ProcessedInfo");
-            logger.Log("Finished processing of the data.");
+            _dataAccess.LoadData();
+            _dataAccess.SaveData("ProcessedInfo");
+            _logger.Log("Finished processing of the data.");
         }
     }
 }
